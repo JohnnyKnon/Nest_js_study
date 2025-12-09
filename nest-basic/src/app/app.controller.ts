@@ -11,7 +11,7 @@ import {
 
 // 'users'로 시작하는 모든 요청을 처리하는 컨트롤러
 // 예: http:// localhost:3000/users, /users/:id or /users?page=2
-@Controller('users')
+@Controller('test-users')
 export class AppController {
   /**
    * [C] Create - POST /users
