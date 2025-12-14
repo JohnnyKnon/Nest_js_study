@@ -38,6 +38,23 @@ export class BoardService {
     return newBoard;
   }
 
+  update(id: number, payload: any): Board {
+    const boardIndex: number = this.boards.findIndex(
+      (board) => board.id === id,
+    );
+
+    if (boardIndex === -1) {
+      throw new NotFoundException(`게시물을 찾을 수 없습니다. ID: ${id}`);
+    }
+
+    this.boards[boardIndex] = {
+      ...this.boards[boardIndex],
+      ...payload,
+    };
+
+    return this.boards[boardIndex];
+  }
+
   generateId(): number {
     return this.boards.length === 0
       ? 1

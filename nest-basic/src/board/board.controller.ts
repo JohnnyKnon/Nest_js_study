@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { BoardService } from './board.service';
 
 // 1. 전체 문맥 이해하기
@@ -42,13 +42,18 @@ export class BoardController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: number): Board {
+  findOne(@Param('id') id: string): Board {
     // return `게시물 조회 (ID: ${id})`;
-    return this.boardService.findOne(id);
+    return this.boardService.findOne(Number(id));
   }
 
   @Post()
   create(@Body() data: any): Board {
     return this.boardService.create(data);
+  }
+
+  @Put(':id')
+  update(@Param('id') id: string, @Body() data: any): Board {
+    return this.boardService.update(Number(id), data);
   }
 }
