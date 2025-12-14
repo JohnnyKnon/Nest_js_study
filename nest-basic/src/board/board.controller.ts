@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { BoardService } from './board.service';
 
 // 1. 전체 문맥 이해하기
@@ -19,7 +19,7 @@ import { BoardService } from './board.service';
 // Nest.js는 BoardController가 생성될 때 BoardService의 인스턴스를 자동으로 생성하여 주입
 
 interface Board {
-  id: string;
+  id: number;
   title: string;
   content: string;
 }
@@ -42,8 +42,13 @@ export class BoardController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string): Board {
+  findOne(@Param('id') id: number): Board {
     // return `게시물 조회 (ID: ${id})`;
     return this.boardService.findOne(id);
+  }
+
+  @Post()
+  create(@Body() data: any): Board {
+    return this.boardService.create(data);
   }
 }
