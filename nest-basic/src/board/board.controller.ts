@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { BoardService } from './board.service';
 
 // 1. 전체 문맥 이해하기
@@ -55,5 +63,10 @@ export class BoardController {
   @Put(':id')
   update(@Param('id') id: string, @Body() data: any): Board {
     return this.boardService.update(Number(id), data);
+  }
+
+  @Delete(':id')
+  delete(@Param('id') id: string): Board[] {
+    return this.boardService.delete(Number(id));
   }
 }

@@ -47,12 +47,27 @@ export class BoardService {
       throw new NotFoundException(`게시물을 찾을 수 없습니다. ID: ${id}`);
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     this.boards[boardIndex] = {
       ...this.boards[boardIndex],
       ...payload,
     };
 
     return this.boards[boardIndex];
+  }
+
+  delete(id: number): Board[] {
+    const boardIndex: number = this.boards.findIndex(
+      (board) => board.id === id,
+    );
+
+    if (boardIndex === -1) {
+      throw new NotFoundException(`게시물을 찾을 수 없습니다. ID: ${id}`);
+    }
+
+    this.boards.splice(boardIndex, 1);
+
+    return this.boards;
   }
 
   generateId(): number {
